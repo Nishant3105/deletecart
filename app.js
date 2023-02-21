@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req,res,next)=>{
-    User.findByPK(1)
+    User.findByPk(1)
     .then(user => {
         req.user=user;
         next()
@@ -59,8 +59,11 @@ sequelize
     return user
  })
  .then(user =>{
-     app.listen(3005);
- })
+    return user.createCart();
+})
+.then(cart=>{
+    app.listen(3005);
+})
  .catch(err=>{
     console.log(err)
  })
